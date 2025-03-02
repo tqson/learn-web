@@ -1,0 +1,77 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.header {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.nav {
+    background: #0866ff;
+    padding: 10px;
+}
+
+.nav__list {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+}
+
+.nav__item {
+    margin: 0 15px;
+}
+
+.nav__link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.main {
+    padding: 20px;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.grid-layout__item {
+    background: #ddd;
+    padding: 20px;
+    text-align: center;
+}
+
+.flex-layout {
+    display: flex;
+    justify-content: space-around;
+}
+
+.flex-layout__item {
+    background: #bbb;
+    padding: 20px;
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
+}
+
+.footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+}

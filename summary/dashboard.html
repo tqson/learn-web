@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+<!--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2C3E50;
+            --secondary-color: #34495E;
+            --accent-color: #3498DB;
+            --text-color: #ECF0F1;
+            --hover-color: #2980B9;
+            --border-color: #7F8C8D;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            display: grid;
+            grid-template-areas:
+                "sidebar header"
+                "sidebar main"
+                "sidebar footer";
+            grid-template-columns: 250px 1fr;
+            grid-template-rows: 60px 1fr 50px;
+            min-height: 100vh;
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            grid-area: sidebar;
+            background: var(--primary-color);
+            padding: 20px 0;
+            color: var(--text-color);
+        }
+
+        .logo {
+            padding: 0 20px;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .menu-item {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .menu-item:hover {
+            background: var(--hover-color);
+        }
+
+        .menu-item i {
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .sidebar {
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-collapsed {
+            transform: translateX(-250px);
+        }
+
+        .main-expanded {
+            margin-left: -250px;
+        }
+
+        .header-expanded {
+            left: 0 !important;
+        }
+
+        /* Header */
+        .header {
+            grid-area: header;
+            background: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .user-profile {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-info {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 100%;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            color: #000;
+        }
+
+        .header {
+            grid-area: header;
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 250px; /* Chiều rộng của sidebar */
+            height: 60px;
+            background: linear-gradient(to right, #4776E6, #8E54E9);
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .user-info {
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                left: 0;
+            }
+        }
+
+        /* Main Content */
+        .main {
+            grid-area: main;
+            padding: 1rem;
+            background: #f5f6fa;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            grid-area: footer;
+            background: #2c3e50;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "header"
+                    "main"
+                    "footer";
+            }
+            .sidebar {
+                display: none;
+            }
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /*  Product list  */
+
+        .product-list {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+
+        .product-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .product-table th,
+        .product-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .product-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+        }
+
+        .in-stock {
+            background: #e3fcef;
+            color: #00a854;
+        }
+
+        .low-stock {
+            background: #fff7e6;
+            color: #fa8c16;
+        }
+
+        .out-stock {
+            background: #fff1f0;
+            color: #f5222d;
+        }
+
+        .hover-pointer {
+            cursor: pointer;
+        }
+
+        /* Responsive cho bảng */
+        @media (max-width: 1024px) {
+            .product-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-list {
+                margin-top: 1rem;
+                padding: 1rem;
+            }
+
+            .product-table th,
+            .product-table td {
+                padding: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo">
+        <i class="fas fa-product"></i> Product Manager
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-home"></i> Dashboard
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-layout"></i> Layouts
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-palette"></i> Styles
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-mobile-alt"></i> Responsive
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-animation"></i> Animations
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-grid"></i> Grid System
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-box"></i> Flexbox
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-paint-brush"></i> CSS3
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-code"></i> JavaScript
+    </div>
+    <div class="menu-item">
+        <i class="fas fa-tools"></i> Tools
+    </div>
+</div>
+
+<header class="header">
+    <div class="header-left">
+        <i class="fas fa-bars hover-pointer"></i>
+        <h2>Dashboard</h2>
+    </div>
+    <div class="header-right">
+        <div class="user-profile">
+            <div class="user-avatar">
+                <span id="userInitial">U</span>
+            </div>
+            <span id="userName">User</span>
+            <div class="user-info" id="userInfo">
+                <!-- User info will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+</header>
+
+<main class="main">
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Doanh thu hôm nay</h3>
+            <p>5,000,000 đ</p>
+        </div>
+        <div class="stat-card">
+            <h3>Doanh thu tuần</h3>
+            <p>30,000,000 đ</p>
+        </div>
+        <div class="stat-card">
+            <h3>Doanh thu tháng</h3>
+            <p>135,000,000 đ</p>
+        </div>
+        <!-- Add more stat cards -->
+    </div>
+
+<!--    <div class="charts-grid">-->
+<!--        <div class="chart-container">-->
+<!--            <canvas id="pieChart"></canvas>-->
+<!--        </div>-->
+<!--        <div class="chart-container">-->
+<!--            <canvas id="barChart"></canvas>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="products-grid">-->
+<!--        <div class="stat-card">-->
+<!--            <h3>Sản phẩm bán chạy</h3>-->
+<!--            &lt;!&ndash; Add product list &ndash;&gt;-->
+<!--        </div>-->
+<!--        <div class="stat-card">-->
+<!--            <h3>Tồn kho</h3>-->
+<!--            &lt;!&ndash; Add inventory list &ndash;&gt;-->
+<!--        </div>-->
+<!--        <div class="stat-card">-->
+<!--            <h3>Đánh giá</h3>-->
+<!--            &lt;!&ndash; Add ratings &ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="product-list">
+        <h2>Danh sách sản phẩm</h2>
+        <table class="product-table">
+            <thead>
+            <tr>
+                <th>Mã SP</th>
+                <th>Tên sản phẩm</th>
+                <th>Danh mục</th>
+                <th>Giá</th>
+                <th>Tồn kho</th>
+                <th>Trạng thái</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>MH001</td>
+                <td>Màn hình Dell 27"</td>
+                <td>Màn hình</td>
+                <td>5,990,000đ</td>
+                <td>15</td>
+                <td><span class="status in-stock">Còn hàng</span></td>
+            </tr>
+            <tr>
+                <td>BP002</td>
+                <td>Bàn phím cơ Logitech</td>
+                <td>Bàn phím</td>
+                <td>2,490,000đ</td>
+                <td>8</td>
+                <td><span class="status low-stock">Sắp hết</span></td>
+            </tr>
+            <tr>
+                <td>CH003</td>
+                <td>Chuột gaming Razer</td>
+                <td>Chuột</td>
+                <td>1,790,000đ</td>
+                <td>0</td>
+                <td><span class="status out-stock">Hết hàng</span></td>
+            </tr>
+            <tr>
+                <td>MH004</td>
+                <td>Màn hình LG Ultrawide</td>
+                <td>Màn hình</td>
+                <td>8,990,000đ</td>
+                <td>5</td>
+                <td><span class="status in-stock">Còn hàng</span></td>
+            </tr>
+            <tr>
+                <td>BP005</td>
+                <td>Bàn phím Apple Magic</td>
+                <td>Bàn phím</td>
+                <td>2,990,000đ</td>
+                <td>12</td>
+                <td><span class="status in-stock">Còn hàng</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<footer class="footer">
+    <p>&copy; 2025 Dashboard Demo <strong>by TQS</strong></p>
+</footer>
+
+<script>
+    let number1 = 1
+    let number2 = 2
+    let number3 = 3
+
+    var varnumber1 = 5
+    var varnumber2 = 6
+    var varnumber3 = null
+
+    const hangso1 = 10
+
+    // console.log('hangso1 dòng 511', hangso1)
+
+    // hangso1 = hangso1 + 1
+
+    // number1 = number1 + 10
+    // varnumber1 = 'varnumber2 + varnumber3'
+
+    // console.log('hangso1 518', hangso1)
+    //
+    // console.log('varnumber1', varnumber1)
+    // console.log('varnumber2', varnumber2)
+    // console.log('varnumber3', varnumber3)
+    //
+    // console.log('numer1', number1)
+    // console.log('numer2', number2)
+    // console.log('numer3', number3)
+    //
+    // console.log('Tổng số', number1 + number2 + number3)
+
+
+
+     // Kiểu dữ liệu demo
+    const number = 123
+    const string = 'Tôi là ai'
+    const stringrong = ' '
+    const undefindee = undefined
+    const nulltype = null
+    const boolean = true
+    const object = {
+        // key: value
+        name: 'Trịnh Quang Sơn',
+        age: 30,
+        male: true,
+        house: undefined
+    }
+    const condition1 = 2 > 1 // true
+    const condition2 = 1 > 2 // false
+    const condition3 = 1 != '1'
+    const condition4 = 1 !== '1'
+    // console.log('1 != "1"', condition3)
+    // console.log('1 !== "1"', condition4)
+
+
+
+    const condition22222 = condition1 && condition2
+    // console.log('condition22222', !condition22222) // phủ định laị điều kiện bằng !
+
+    // chỉ đúng khi tất cả điều kiện đúng
+    // và sai trong những trường hợp còn lại
+    const summary = condition1 && condition2 && condition3
+
+    // chỉ sai khi tất cả điều kiện sai
+    // và đúng trong những trường hợp còn lại
+    const orsummary = condition1 || condition2 || condition3
+
+    // console.log('summary', summary)
+    // // console.log(condition1 || condition2)
+    //
+    // console.log('orsummary', orsummary)
+
+
+    const AB = condition1 && (condition2 || condition3) // false
+    // => false
+
+    // console.log('ABG', AB)
+
+
+    // console.log('10%3', 10%3)
+    //
+    // console.log('object', object)
+    // console.log('Tên', object.name)
+    // console.log('Tuổi', object.age)
+
+    const arrayType = [
+        11,
+        'Tôi là tôi',
+        true,
+        null,
+        undefined,
+        object
+    ]
+
+
+    // console.error('hiển thị trong lỗi')
+    // console.warn('hiển thị trong cảnh báo')
+
+    // console.log('arrayType', arrayType)
+
+
+    // condition if else
+    // if (!condition1) {
+    //     console.log('điều kiện 1 đúng rồi')
+    //     number1 = 1000
+    // } else {
+    //     console.log('điều kiện 1 sai rồi')
+    // }
+
+    // const conditionSwitch = 0
+    //
+    // switch (conditionSwitch) {
+    //     case 1:
+    //         console.log('tôi bằng một')
+    //         break
+    //     case 2:
+    //         console.log('tôi bằng hai')
+    //         break
+    //     case 3:
+    //         console.log('tôi bằng ba')
+    //         break
+    //     case 4:
+    //         console.log('tôi bằng bốn')
+    //         break
+    //     default:
+    //         console.log('toi luôn mặc định là default')
+    //
+    // }
+
+
+    let sum = 0
+
+    //loop: for
+    for (let i = 0; i < 10; i++) {
+        // sum = sum + i
+        // console.log('i: ', i)
+        // console.log('sum i', sum)
+    }
+
+    let i = 0
+    // while (i < 10) {
+    //     sum = sum + i
+    //     console.log('i: ', i)
+    //     console.log('sum i', sum)
+    //     i++
+    // }
+
+    // do {
+        // sum = sum + i
+        // console.log('i: ', i)
+        // console.log('sum i', sum)
+        // i++
+    // } while (i < 10)
+
+    // for (let i = 9; i >= 0; i--) {
+    //     sum = sum + i
+    //     console.log('i: ', i)
+    //     console.log('sum i', sum)
+    // }
+
+    // let sumWhile = 0
+    // let x = 10
+    //
+    // while (x > 1) {
+    //     sumWhile = sumWhile + x
+    //     // x = x - 1
+    //     x--
+    //     console.log('i: ', i)
+    //     console.log('sum i', sum)
+    // }
+    //
+    // console.log('sumWhile', sumWhile)
+
+    let result = 0
+    const operator = '-'
+    switch (operator) {
+        case '+':
+            result = number1 + number2
+            break
+        case '':
+            result = number1 - number2
+            break
+        case '*':
+            result = number1 * number2
+            break
+    }
+
+    console.log('result', result)
+
+
+
+    // console.log(number1)
+    // Load user info
+    window.onload = function() {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        document.getElementById('userName').textContent = userInfo.name;
+        document.getElementById('userInitial').textContent = userInfo.name.charAt(0).toUpperCase();
+
+        const userInfoDiv = document.getElementById('userInfo');
+        userInfoDiv.innerHTML = `
+        <p><strong>Tên:</strong> ${userInfo.name}</p>
+        <p><strong>Tuổi:</strong> ${userInfo.age}</p>
+        <p><strong>Địa chỉ:</strong> ${userInfo.address}</p>
+    `;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuIcon = document.querySelector('.fa-bars');
+        const sidebar = document.querySelector('.sidebar');
+        const main = document.querySelector('.main');
+        const header = document.querySelector('.header');
+
+        menuIcon.addEventListener('click', function() {
+            sidebar.classList.toggle('sidebar-collapsed');
+            main.classList.toggle('main-expanded');
+            header.classList.toggle('header-expanded');
+        });
+    });
+
+    // Toggle user info
+    document.querySelector('.user-profile').addEventListener('click', function() {
+        const userInfo = document.querySelector('.user-info');
+        userInfo.style.display = userInfo.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Charts
+<!--    const pieChart = new Chart(document.getElementById('pieChart'), {-->
+<!--        type: 'pie',-->
+<!--        data: {-->
+<!--            labels: ['Màn hình', 'Bàn phím', 'Chuột'],-->
+<!--            datasets: [{-->
+<!--                data: [30, 40, 30],-->
+<!--                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']-->
+<!--            }]-->
+<!--        }-->
+<!--    });-->
+
+<!--    const barChart = new Chart(document.getElementById('barChart'), {-->
+<!--        type: 'bar',-->
+<!--        data: {-->
+<!--            labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],-->
+<!--            datasets: [{-->
+<!--                label: 'Doanh thu',-->
+<!--                data: [12, 19, 3, 5, 2, 3, 7],-->
+<!--                backgroundColor: '#36A2EB'-->
+<!--            }]-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+</body>
+</html>

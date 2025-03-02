@@ -1,0 +1,86 @@
+.container {
+    margin: 20px;
+    padding: 10px;
+    border: 2px solid #333;
+}
+
+.grid-container {
+    display: grid;
+    background: #f0f0f0;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.grid-item {
+    background: #2196F3;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Basic Grid */
+.basic-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+/* Grid Template Areas */
+.template-areas {
+    grid-template-areas:
+                "header header header"
+                "main main main"
+                "footer footer footer";
+    gap: 10px;
+}
+
+.header {
+    grid-area: header;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.main {
+    grid-area: main;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+/* Grid Column/Row Start/End */
+.position-demo {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.span-2 {
+    grid-column: span 2;
+}
+
+.span-3 {
+    grid-column: span 3;
+}
+
+/* Grid Auto Flow */
+.auto-flow-row {
+    grid-auto-flow: row;
+}
+
+.auto-flow-column {
+    grid-auto-flow: column;
+}
+
+/* Grid Alignment */
+.justify-items-demo {
+    grid-template-columns: repeat(3, 100px);
+    justify-items: center;
+    height: 200px;
+}
+
+.align-items-demo {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    height: 200px;
+}

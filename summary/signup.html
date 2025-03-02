@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(45deg, #6c5ce7, #a8e6cf);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .register-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #5b4dc7;
+        }
+    </style>
+</head>
+<body>
+<form class="register-form" onsubmit="handleSubmit(event)">
+    <h2 style="margin-bottom: 1.5rem; text-align: center;">Đăng ký</h2>
+    <div class="form-group">
+        <label for="name">Họ và tên</label>
+        <input type="text" id="name" required>
+    </div>
+    <div class="form-group">
+        <label for="age">Tuổi</label>
+        <input type="number" id="age" required>
+    </div>
+    <div class="form-group">
+        <label for="address">Địa chỉ</label>
+        <input type="text" id="address" required>
+    </div>
+    <button type="submit" class="submit-btn">Đăng ký</button>
+</form>
+
+<script>
+    function handleSubmit(event) {
+        event.preventDefault();
+        const userInfo = {
+            name: document.getElementById('name').value,
+            age: document.getElementById('age').value,
+            address: document.getElementById('address').value
+        };
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+        window.location.href = 'dashboard.html';
+    }
+</script>
+</body>
+</html>
