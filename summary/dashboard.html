@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-<!--    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -203,7 +203,7 @@
 
         .charts-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2 , 1fr);
             gap: 1rem;
             margin-bottom: 2rem;
         }
@@ -385,7 +385,7 @@
                 <span id="userInitial">U</span>
             </div>
             <span id="userName">User</span>
-            <div class="user-info" id="userInfo">
+            <div class="user-info z-1" id="userInfo">
                 <!-- User info will be populated by JavaScript -->
             </div>
         </div>
@@ -409,29 +409,29 @@
         <!-- Add more stat cards -->
     </div>
 
-<!--    <div class="charts-grid">-->
+    <div class="charts-grid">
 <!--        <div class="chart-container">-->
 <!--            <canvas id="pieChart"></canvas>-->
 <!--        </div>-->
-<!--        <div class="chart-container">-->
-<!--            <canvas id="barChart"></canvas>-->
-<!--        </div>-->
-<!--    </div>-->
+        <div class="chart-container">
+            <canvas id="barChart"></canvas>
+        </div>
+    </div>
 
-<!--    <div class="products-grid">-->
-<!--        <div class="stat-card">-->
-<!--            <h3>Sản phẩm bán chạy</h3>-->
-<!--            &lt;!&ndash; Add product list &ndash;&gt;-->
-<!--        </div>-->
-<!--        <div class="stat-card">-->
-<!--            <h3>Tồn kho</h3>-->
-<!--            &lt;!&ndash; Add inventory list &ndash;&gt;-->
-<!--        </div>-->
-<!--        <div class="stat-card">-->
-<!--            <h3>Đánh giá</h3>-->
-<!--            &lt;!&ndash; Add ratings &ndash;&gt;-->
-<!--        </div>-->
-<!--    </div>-->
+    <div class="products-grid">
+        <div class="stat-card">
+            <h3>Sản phẩm bán chạy</h3>
+            <!-- Add product list -->
+        </div>
+        <div class="stat-card">
+            <h3>Tồn kho</h3>
+            <!-- Add inventory list -->
+        </div>
+        <div class="stat-card">
+            <h3>Đánh giá</h3>
+            <!-- Add ratings -->
+        </div>
+    </div>
 
     <div class="product-list">
         <h2>Danh sách sản phẩm</h2>
@@ -446,47 +446,47 @@
                 <th>Trạng thái</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>MH001</td>
-                <td>Màn hình Dell 27"</td>
-                <td>Màn hình</td>
-                <td>5,990,000đ</td>
-                <td>15</td>
-                <td><span class="status in-stock">Còn hàng</span></td>
-            </tr>
-            <tr>
-                <td>BP002</td>
-                <td>Bàn phím cơ Logitech</td>
-                <td>Bàn phím</td>
-                <td>2,490,000đ</td>
-                <td>8</td>
-                <td><span class="status low-stock">Sắp hết</span></td>
-            </tr>
-            <tr>
-                <td>CH003</td>
-                <td>Chuột gaming Razer</td>
-                <td>Chuột</td>
-                <td>1,790,000đ</td>
-                <td>0</td>
-                <td><span class="status out-stock">Hết hàng</span></td>
-            </tr>
-            <tr>
-                <td>MH004</td>
-                <td>Màn hình LG Ultrawide</td>
-                <td>Màn hình</td>
-                <td>8,990,000đ</td>
-                <td>5</td>
-                <td><span class="status in-stock">Còn hàng</span></td>
-            </tr>
-            <tr>
-                <td>BP005</td>
-                <td>Bàn phím Apple Magic</td>
-                <td>Bàn phím</td>
-                <td>2,990,000đ</td>
-                <td>12</td>
-                <td><span class="status in-stock">Còn hàng</span></td>
-            </tr>
+            <tbody id="table-content">
+<!--            <tr>-->
+<!--                <td>MH001</td>-->
+<!--                <td>Màn hình Dell 27"</td>-->
+<!--                <td>Màn hình</td>-->
+<!--                <td>5,990,000đ</td>-->
+<!--                <td>15</td>-->
+<!--                <td><span class="status in-stock">Còn hàng</span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>BP002</td>-->
+<!--                <td>Bàn phím cơ Logitech</td>-->
+<!--                <td>Bàn phím</td>-->
+<!--                <td>2,490,000đ</td>-->
+<!--                <td>8</td>-->
+<!--                <td><span class="status low-stock">Sắp hết</span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>CH003</td>-->
+<!--                <td>Chuột gaming Razer</td>-->
+<!--                <td>Chuột</td>-->
+<!--                <td>1,790,000đ</td>-->
+<!--                <td>0</td>-->
+<!--                <td><span class="status out-stock">Hết hàng</span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>MH004</td>-->
+<!--                <td>Màn hình LG Ultrawide</td>-->
+<!--                <td>Màn hình</td>-->
+<!--                <td>8,990,000đ</td>-->
+<!--                <td>5</td>-->
+<!--                <td><span class="status in-stock">Còn hàng</span></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td>BP005</td>-->
+<!--                <td>Bàn phím Apple Magic</td>-->
+<!--                <td>Bàn phím</td>-->
+<!--                <td>2,990,000đ</td>-->
+<!--                <td>12</td>-->
+<!--                <td><span class="status in-stock">Còn hàng</span></td>-->
+<!--            </tr>-->
             </tbody>
         </table>
     </div>
@@ -543,6 +543,7 @@
         male: true,
         house: undefined
     }
+    console.log('object.gender', object.gender)
     const condition1 = 2 > 1 // true
     const condition2 = 1 > 2 // false
     const condition3 = 1 != '1'
@@ -722,28 +723,125 @@
     });
 
     // Charts
-<!--    const pieChart = new Chart(document.getElementById('pieChart'), {-->
-<!--        type: 'pie',-->
-<!--        data: {-->
-<!--            labels: ['Màn hình', 'Bàn phím', 'Chuột'],-->
-<!--            datasets: [{-->
-<!--                data: [30, 40, 30],-->
-<!--                backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']-->
-<!--            }]-->
-<!--        }-->
-<!--    });-->
+    // const pieChart = new Chart(document.getElementById('pieChart'), {
+    //     type: 'pie',
+    //     data: {
+    //         labels: ['Màn hình', 'Bàn phím', 'Chuột'],
+    //         datasets: [{
+    //             data: [30, 40, 30],
+    //             backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+    //         }]
+    //     }
+    // });
 
-<!--    const barChart = new Chart(document.getElementById('barChart'), {-->
-<!--        type: 'bar',-->
-<!--        data: {-->
-<!--            labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],-->
-<!--            datasets: [{-->
-<!--                label: 'Doanh thu',-->
-<!--                data: [12, 19, 3, 5, 2, 3, 7],-->
-<!--                backgroundColor: '#36A2EB'-->
-<!--            }]-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
+    const barChart = new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+            labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+            datasets: [{
+                label: 'Doanh thu',
+                data: [12, 19, 3, 5, 2, 3, 7],
+                backgroundColor: '#36A2EB'
+            }]
+        }
+    });
+</script>
+
+<script>
+    const dataSource = [
+        {
+            code: 'MH001',
+            name: 'Màn hình Dell 27"',
+            category: 'Màn hình',
+            price: 5990000,
+            stockCount: 15,
+            status: 'Còn hàng'
+        },
+        {
+            code: 'BP002',
+            name: 'Bàn phím cơ Logitech',
+            category: 'Bàn phím',
+            price: 2490000,
+            stockCount: 8,
+            status: 'Sắp hết'
+        },
+        {
+            code: 'MH001',
+            name: 'Màn hình SamSung 29"',
+            category: 'Màn hình',
+            price: 5990000,
+            stockCount: 15,
+            status: 'Còn hàng'
+        },
+        {
+            code: 'BP002',
+            name: 'Bàn phím cơ Logitech',
+            category: 'Bàn phím',
+            price: 2490000,
+            stockCount: 8,
+            status: 'Sắp hết'
+        },
+        {
+            code: 'MH001',
+            name: 'Case máy tính Dell',
+            category: 'Case',
+            price: 300000000,
+            stockCount: 15,
+            status: 'Còn hàng'
+        },
+        {
+            code: 'BP002',
+            name: 'Bàn phím cơ Logitech',
+            category: 'Bàn phím',
+            price: 2490000,
+            stockCount: 8,
+            status: 'Sắp hết'
+        },
+
+    ]
+
+    const tableContent = document.getElementById('table-content')
+    let content = ''
+
+    for (let i = 0; i < dataSource.length; i++) {
+        const item = dataSource[i] //cách lấy phần tử mảng qua key
+
+        content += `<tr>
+            <td>${item.code}</td>
+            <td>${item.name}</td>
+            <td>${item.category}</td>
+            <td>${item.price}đ</td>
+            <td>${item.stockCount}</td>
+            <td>
+            <span className="status">${item.status}</span>
+            </td>
+            <td><button>Xóa</button></td>
+        </tr>
+`
+    // cách nối chuỗi và biến javascript sử dụng `${tên-biến}`
+    }
+
+    dataSource.forEach(function(item) {
+        content += `<tr>
+            <td>${item.code}</td>
+            <td>${item.name}</td>
+            <td>${item.category}</td>
+            <td>${item.price}đ</td>
+            <td>${item.stockCount}</td>
+            <td>
+            <span className="status">${item.status}</span>
+            </td>
+            <td><button>Xóa</button></td>
+        </tr>
+`
+    })
+
+
+    tableContent.innerHTML = content // cách gán giá trị là html cho 1 DOM xác định
+
+    // console.log('content', content)
+
+</script>
 </body>
+
 </html>
